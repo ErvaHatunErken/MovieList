@@ -1,24 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Movie View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieViewController" id="BYZ-38-t0r" customClass="MovieViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ObC-dn-37B">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieTableViewCell" rowHeight="317" id="ZjZ-ze-eK1" customClass="MovieTableViewCell" customModule="MovieList" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="317"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZjZ-ze-eK1" id="chi-IO-gTo">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="317"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-8b-rTb">
+                                                    <rect key="frame" x="0.0" y="5" width="130" height="307"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="130" id="0fe-Dx-gak"/>
+                                                        <constraint firstAttribute="height" constant="200" id="bgV-cD-wf5"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sn9-M0-0x0">
+                                                    <rect key="frame" x="140" y="15" width="259" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhV-wG-Lqi">
+                                                    <rect key="frame" x="140" y="286" width="259" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Sn9-M0-0x0" secondAttribute="trailing" constant="15" id="2Ie-C9-E0i"/>
+                                                <constraint firstAttribute="bottom" secondItem="T6V-8b-rTb" secondAttribute="bottom" constant="5" id="3vw-Fx-oy2"/>
+                                                <constraint firstAttribute="trailing" secondItem="AhV-wG-Lqi" secondAttribute="trailing" constant="15" id="BvH-qd-u4l"/>
+                                                <constraint firstItem="AhV-wG-Lqi" firstAttribute="leading" secondItem="T6V-8b-rTb" secondAttribute="trailing" constant="10" id="FsS-Ot-73L"/>
+                                                <constraint firstItem="T6V-8b-rTb" firstAttribute="leading" secondItem="chi-IO-gTo" secondAttribute="leading" id="PMl-Mp-y2e"/>
+                                                <constraint firstItem="Sn9-M0-0x0" firstAttribute="leading" secondItem="T6V-8b-rTb" secondAttribute="trailing" constant="10" id="Pbz-CD-NY3"/>
+                                                <constraint firstItem="Sn9-M0-0x0" firstAttribute="top" secondItem="chi-IO-gTo" secondAttribute="top" constant="15" id="Zrs-yy-bFs"/>
+                                                <constraint firstItem="T6V-8b-rTb" firstAttribute="top" secondItem="chi-IO-gTo" secondAttribute="top" constant="5" id="bWD-xw-kcB"/>
+                                                <constraint firstAttribute="bottom" secondItem="AhV-wG-Lqi" secondAttribute="bottom" constant="10" id="h8l-yU-3qJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="movieImage" destination="T6V-8b-rTb" id="fLB-ZB-aDk"/>
+                                            <outlet property="movieTitle" destination="Sn9-M0-0x0" id="MXE-Dx-Wfg"/>
+                                            <outlet property="releaseDate" destination="AhV-wG-Lqi" id="hUh-yN-XZO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ObC-dn-37B" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FZL-cE-U9m"/>
+                            <constraint firstItem="ObC-dn-37B" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HWY-dB-6x9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ObC-dn-37B" secondAttribute="trailing" id="MGL-jD-FRB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ObC-dn-37B" secondAttribute="bottom" id="yIm-cP-6E2"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="ObC-dn-37B" id="j66-eQ-E7y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="68.973214285714278"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
