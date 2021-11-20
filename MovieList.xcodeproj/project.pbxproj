@@ -160,6 +160,13 @@
 			path = layout;
 			sourceTree = "<group>";
 		};
+		8D4A2C3427498B9800447F2D /* sceneImage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = sceneImage;
+			sourceTree = "<group>";
+		};
 		8DB86EF6273FDC8F00489F3B = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +188,7 @@
 		8DB86F01273FDC8F00489F3B /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
+				8D4A2C3427498B9800447F2D /* sceneImage */,
 				8D4A2C0B274034F500447F2D /* manager */,
 				8D4A2BFB273FDEDB00447F2D /* model */,
 				8D4A2BEC273FDE8F00447F2D /* scenes */,
