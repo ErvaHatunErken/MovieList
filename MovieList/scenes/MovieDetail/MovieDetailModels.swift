@@ -16,16 +16,26 @@ enum MovieDetail
 {
   // MARK: Use cases
   
-  enum Something
+  enum Movie
   {
     struct Request
     {
+        var id: Int?
     }
-    struct Response
-    {
+    struct Response {
+        var movie: Result
     }
-    struct ViewModel
-    {
+    struct ViewModel {
+        struct DisplayedMovie {
+            var originalTitle: String
+            var overview: String
+            var posterPath: String
+            var releaseDate: String
+            var title: String
+        }
+        
+        var displayedMovie: DisplayedMovie
     }
   }
 }
+

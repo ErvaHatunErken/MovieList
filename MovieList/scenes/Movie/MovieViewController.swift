@@ -15,11 +15,13 @@ import Kingfisher
 
 protocol MovieDisplayLogic: class {
     func displayFetchMovies(viewModel: Movie.FetchMovie.ViewModel)
-    func displayMovieDetail()
+    func displayMovieDetail(selectedItem: Int)
 }
 
 class MovieViewController: UIViewController, MovieDisplayLogic {
-    @IBOutlet weak var tableView: UITableView!
+    
+   // @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var interactor: MovieBusinessLogic?
     var router: (NSObjectProtocol & MovieRoutingLogic & MovieDataPassing)?
@@ -66,9 +68,14 @@ class MovieViewController: UIViewController, MovieDisplayLogic {
       
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
+          layout.delegate = self
+        }
         fetchMovies()
-        tableView.delegate = self
-        tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        //tableView.delegate = self
+        //tableView.dataSource = self
     }
       
       // MARK: Do something
@@ -83,41 +90,48 @@ class MovieViewController: UIViewController, MovieDisplayLogic {
       
     func displayFetchMovies(viewModel: Movie.FetchMovie.ViewModel){
         displayedMovies = viewModel.displayedMovies
-        tableView.isHidden = false
-        tableView.reloadData()
-        //nameTextField.text = viewModel.name
+        collectionView.isHidden = false
+        collectionView.reloadData()
+        //tableView.isHidden = false
+        //tableView.reloadData()
     }
     
-    func displayMovieDetail() {
-        router?.routeToMovieDetail(segue: nil)
+    func displayMovieDetail(selectedItem: Int) {
+        router?.routeToMovieDetail(segue: nil, selectedItem: selectedItem)
     }
 }
 
-extension MovieViewController:  UITableViewDelegate, UITableViewDataSource {
-    // MARK: - Table view data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+            return 1
+        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return displayedMovies.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let displayedMovie = displayedMovies[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell") as? MovieTableViewCell else {
-            return UITableViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as? MovieCollectionViewCell else {
+            return UICollectionViewCell()
         }
-        
-        cell.movieTitle.text = displayedMovie.originalTitle
+        cell.movieName.text = displayedMovie.originalTitle
         let imageUrl = "http://image.tmdb.org/t/p/w500\(displayedMovie.posterPath)"
-        cell.movieImage.kf.setImage(with: URL(string: imageUrl))
-        cell.releaseDate.text = displayedMovie.releaseDate
+        cell.moviePoster.kf.setImage(with: URL(string: imageUrl))
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        displayMovieDetail()
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        displayMovieDetail(selectedItem: indexPath.item)
     }
+    
+    
+    
 }
+
+extension MovieViewController: PinterestLayoutDelegate {
+    func collectionView( _ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+        return 320
+      }
+}
+

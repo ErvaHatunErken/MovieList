@@ -11,17 +11,25 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol MovieDetailDisplayLogic: class
 {
-  func displaySomething(viewModel: MovieDetail.Something.ViewModel)
+  func displayMovieDetail(viewModel: MovieDetail.Movie.ViewModel)
 }
 
 class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic
 {
+    
+    
   var interactor: MovieDetailBusinessLogic?
   var router: (NSObjectProtocol & MovieDetailRoutingLogic & MovieDetailDataPassing)?
 
+    @IBOutlet weak var moviePoster: UIImageView!
+    @IBOutlet weak var movieName: UILabel!
+    @IBOutlet weak var movieDetail: UILabel!
+    @IBOutlet weak var movieReleaseDate: UILabel!
+    
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -69,21 +77,28 @@ class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
+    fetchMovieDetail()
   }
   
   // MARK: Do something
   
   //@IBOutlet weak var nameTextField: UITextField!
   
-  func doSomething()
+  func fetchMovieDetail()
   {
-    let request = MovieDetail.Something.Request()
-    interactor?.doSomething(request: request)
+    let request = MovieDetail.Movie.Request()
+    interactor?.displayMovieDetail(request: request)
   }
   
-  func displaySomething(viewModel: MovieDetail.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    func displayMovieDetail(viewModel: MovieDetail.Movie.ViewModel) {
+        self.movieName.text = viewModel.displayedMovie.title
+        
+        let imageUrl = "http://image.tmdb.org/t/p/w500\(viewModel.displayedMovie.posterPath)"
+        self.moviePoster.kf.setImage(with: URL(string: imageUrl))
+        self.movieDetail.text = viewModel.displayedMovie.overview
+        self.movieReleaseDate.text = "Release Date: \(viewModel.displayedMovie.releaseDate)"
+    }
 }
+
+
+

@@ -14,7 +14,7 @@ import UIKit
 
 protocol MovieDetailPresentationLogic
 {
-  func presentSomething(response: MovieDetail.Something.Response)
+  func presentMovieDetail(response: MovieDetail.Movie.Response)
 }
 
 class MovieDetailPresenter: MovieDetailPresentationLogic
@@ -23,9 +23,11 @@ class MovieDetailPresenter: MovieDetailPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: MovieDetail.Something.Response)
+  func presentMovieDetail(response: MovieDetail.Movie.Response)
   {
-    let viewModel = MovieDetail.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let displayedMovie = MovieDetail.Movie.ViewModel.DisplayedMovie(originalTitle: response.movie.originalTitle, overview: response.movie.overview, posterPath: response.movie.posterPath, releaseDate: response.movie.releaseDate, title: response.movie.title)
+    
+    let viewModel = MovieDetail.Movie.ViewModel(displayedMovie: displayedMovie)
+    viewController?.displayMovieDetail(viewModel: viewModel)
   }
 }

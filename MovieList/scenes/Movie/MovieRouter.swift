@@ -14,8 +14,7 @@ import UIKit
 
 @objc protocol MovieRoutingLogic
 {
-    func routeToMovieDetail(segue: UIStoryboardSegue?)
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToMovieDetail(segue: UIStoryboardSegue?, selectedItem: Int)
 }
 
 protocol MovieDataPassing
@@ -29,8 +28,29 @@ class MovieRouter: NSObject, MovieRoutingLogic, MovieDataPassing
   var dataStore: MovieDataStore?
   
   // MARK: Routing
-    func routeToMovieDetail(segue: UIStoryboardSegue?)  {
+    func routeToMovieDetail(segue: UIStoryboardSegue?, selectedItem: Int)  {
+        let destinationVC = viewController?.storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataMovieDetail(source: dataStore!, destination: &destinationDS, selectedItem: selectedItem)
+        navigateToUpcomingMovieDetail(source: viewController!, destination: destinationVC)
         
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToUpcomingMovieDetail(source: MovieViewController, destination: MovieDetailViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataMovieDetail(source: MovieDataStore, destination: inout MovieDetailDataStore, selectedItem: Int)
+    {
+        //let selectedItem = viewController?.collectionView.cellForItem(at: IndexPath)
+        
+        
+        destination.movie = source.movies?.results[selectedItem]
     }
   //func routeToSomewhere(segue: UIStoryboardSegue?)
   //{

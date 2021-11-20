@@ -11,31 +11,34 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol MovieDetailBusinessLogic
 {
-  func doSomething(request: MovieDetail.Something.Request)
+  func displayMovieDetail(request: MovieDetail.Movie.Request)
 }
 
 protocol MovieDetailDataStore
 {
-  //var name: String { get set }
+    var movie: Result? {get set}
 }
 
-class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore
-{
+class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore {
+    
   var presenter: MovieDetailPresentationLogic?
   var worker: MovieDetailWorker?
+    var movie: Result?
   //var name: String = ""
   
   // MARK: Do something
   
-  func doSomething(request: MovieDetail.Something.Request)
+  func displayMovieDetail(request: MovieDetail.Movie.Request)
   {
     worker = MovieDetailWorker()
     worker?.doSomeWork()
-    
-    let response = MovieDetail.Something.Response()
-    presenter?.presentSomething(response: response)
+    var request = request
+    request.id = movie?.id
+    let response = MovieDetail.Movie.Response(movie: self.movie!)
+    presenter?.presentMovieDetail(response: response)
   }
 }
