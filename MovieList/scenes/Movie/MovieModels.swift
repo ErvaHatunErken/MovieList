@@ -12,8 +12,7 @@
 
 import UIKit
 
-enum Movie
-{
+enum Movie {
   // MARK: Use cases
   
   enum FetchMovie {
@@ -31,7 +30,6 @@ enum Movie
             var releaseDate: String
             var title: String
         }
-        
         var displayedMovies: [DisplayedMovies]
     }
   }

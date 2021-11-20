@@ -12,26 +12,23 @@
 
 import UIKit
 
-protocol MoviePresentationLogic
-{
+protocol MoviePresentationLogic {
   func presentMovies(response: Movie.FetchMovie.Response)
 }
 
-class MoviePresenter: MoviePresentationLogic
-{
-  weak var viewController: MovieDisplayLogic?
+class MoviePresenter: MoviePresentationLogic {
+    weak var viewController: MovieDisplayLogic?
   
-  // MARK: Do something
+    // MARK: Do something
   
-  func presentMovies(response: Movie.FetchMovie.Response)
-  {
-    var displayedMovies: [Movie.FetchMovie.ViewModel.DisplayedMovies] = []
-    for movie in response.movies.results {
-        let displayedMovie = Movie.FetchMovie.ViewModel.DisplayedMovies(id: movie.id, originalTitle: movie.originalTitle, overview: movie.overview, posterPath: movie.posterPath, releaseDate: movie.releaseDate, title: movie.title)
-        displayedMovies.append(displayedMovie)
-    }
+    func presentMovies(response: Movie.FetchMovie.Response) {
+        var displayedMovies: [Movie.FetchMovie.ViewModel.DisplayedMovies] = []
+        for movie in response.movies.results {
+            let displayedMovie = Movie.FetchMovie.ViewModel.DisplayedMovies(id: movie.id, originalTitle: movie.originalTitle, overview: movie.overview, posterPath: movie.posterPath, releaseDate: movie.releaseDate, title: movie.title)
+            displayedMovies.append(displayedMovie)
+        }
     
-    let viewModel = Movie.FetchMovie.ViewModel(displayedMovies: displayedMovies)
-    viewController?.displayFetchMovies(viewModel: viewModel)
-  }
+        let viewModel = Movie.FetchMovie.ViewModel(displayedMovies: displayedMovies)
+        viewController?.displayFetchMovies(viewModel: viewModel)
+    }
 }

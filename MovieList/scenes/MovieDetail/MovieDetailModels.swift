@@ -12,15 +12,11 @@
 
 import UIKit
 
-enum MovieDetail
-{
+enum MovieDetail {
   // MARK: Use cases
   
-  enum Movie
-  {
-    struct Request
-    {
-        var id: Int?
+  enum Movie {
+    struct Request {
     }
     struct Response {
         var movie: Result

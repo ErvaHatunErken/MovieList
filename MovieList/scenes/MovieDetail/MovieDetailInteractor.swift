@@ -13,32 +13,24 @@
 import UIKit
 import Kingfisher
 
-protocol MovieDetailBusinessLogic
-{
-  func displayMovieDetail(request: MovieDetail.Movie.Request)
+protocol MovieDetailBusinessLogic {
+    func displayMovieDetail(request: MovieDetail.Movie.Request)
 }
 
-protocol MovieDetailDataStore
-{
+protocol MovieDetailDataStore {
     var movie: Result? {get set}
 }
 
 class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore {
-    
-  var presenter: MovieDetailPresentationLogic?
-  var worker: MovieDetailWorker?
+    var presenter: MovieDetailPresentationLogic?
+    var worker: MovieDetailWorker?
     var movie: Result?
-  //var name: String = ""
   
-  // MARK: Do something
-  
-  func displayMovieDetail(request: MovieDetail.Movie.Request)
-  {
-    worker = MovieDetailWorker()
-    worker?.doSomeWork()
-    var request = request
-    request.id = movie?.id
-    let response = MovieDetail.Movie.Response(movie: self.movie!)
-    presenter?.presentMovieDetail(response: response)
-  }
+    // MARK: Do something
+    func displayMovieDetail(request: MovieDetail.Movie.Request) {
+        //worker = MovieDetailWorker()
+        //worker?.doSomeWork()
+        let response = MovieDetail.Movie.Response(movie: self.movie!)
+        presenter?.presentMovieDetail(response: response)
+    }
 }

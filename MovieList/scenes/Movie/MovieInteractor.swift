@@ -12,26 +12,20 @@
 
 import UIKit
 
-protocol MovieBusinessLogic
-{
+protocol MovieBusinessLogic {
   func fetchMovies(request: Movie.FetchMovie.Request)
 }
 
-protocol MovieDataStore
-{
+protocol MovieDataStore {
     var movies: MovieResponseModel? { get }
 }
 
-class MovieInteractor: MovieBusinessLogic, MovieDataStore
-{
+class MovieInteractor: MovieBusinessLogic, MovieDataStore {
     var movies: MovieResponseModel?
-    
     var presenter: MoviePresentationLogic?
     var worker: MovieWorker? = MovieWorker(MovieNetworkWorker())
-    //var name: String = ""
-  
+    
     // MARK: Do something
-  
     func fetchMovies(request: Movie.FetchMovie.Request) {
         worker?.fetchMovies(completionHandler: { result, error in
             if error == nil {

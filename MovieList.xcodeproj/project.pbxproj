@@ -148,9 +148,16 @@
 			isa = PBXGroup;
 			children = (
 				8D4A2C21274934A300447F2D /* MovieCollectionViewCell.swift */,
-				8D4A2C2327493D9E00447F2D /* PinterestLayout.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		8D4A2C332749827500447F2D /* layout */ = {
+			isa = PBXGroup;
+			children = (
+				8D4A2C2327493D9E00447F2D /* PinterestLayout.swift */,
+			);
+			path = layout;
 			sourceTree = "<group>";
 		};
 		8DB86EF6273FDC8F00489F3B = {
@@ -177,6 +184,7 @@
 				8D4A2C0B274034F500447F2D /* manager */,
 				8D4A2BFB273FDEDB00447F2D /* model */,
 				8D4A2BEC273FDE8F00447F2D /* scenes */,
+				8D4A2C332749827500447F2D /* layout */,
 				8DB86F02273FDC8F00489F3B /* AppDelegate.swift */,
 				8DB86F04273FDC8F00489F3B /* SceneDelegate.swift */,
 				8DB86F08273FDC8F00489F3B /* Main.storyboard */,

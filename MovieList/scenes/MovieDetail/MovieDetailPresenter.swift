@@ -12,22 +12,18 @@
 
 import UIKit
 
-protocol MovieDetailPresentationLogic
-{
-  func presentMovieDetail(response: MovieDetail.Movie.Response)
+protocol MovieDetailPresentationLogic {
+    func presentMovieDetail(response: MovieDetail.Movie.Response)
 }
 
-class MovieDetailPresenter: MovieDetailPresentationLogic
-{
-  weak var viewController: MovieDetailDisplayLogic?
+class MovieDetailPresenter: MovieDetailPresentationLogic {
+    weak var viewController: MovieDetailDisplayLogic?
   
   // MARK: Do something
-  
-  func presentMovieDetail(response: MovieDetail.Movie.Response)
-  {
-    let displayedMovie = MovieDetail.Movie.ViewModel.DisplayedMovie(originalTitle: response.movie.originalTitle, overview: response.movie.overview, posterPath: response.movie.posterPath, releaseDate: response.movie.releaseDate, title: response.movie.title)
+    func presentMovieDetail(response: MovieDetail.Movie.Response) {
+        let displayedMovie = MovieDetail.Movie.ViewModel.DisplayedMovie(originalTitle: response.movie.originalTitle, overview: response.movie.overview, posterPath: response.movie.posterPath, releaseDate: response.movie.releaseDate, title: response.movie.title)
     
-    let viewModel = MovieDetail.Movie.ViewModel(displayedMovie: displayedMovie)
-    viewController?.displayMovieDetail(viewModel: viewModel)
-  }
+        let viewModel = MovieDetail.Movie.ViewModel(displayedMovie: displayedMovie)
+        viewController?.displayMovieDetail(viewModel: viewModel)
+    }
 }

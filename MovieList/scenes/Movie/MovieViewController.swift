@@ -123,10 +123,7 @@ extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         displayMovieDetail(selectedItem: indexPath.item)
-    }
-    
-    
-    
+    }  
 }
 
 extension MovieViewController: PinterestLayoutDelegate {
