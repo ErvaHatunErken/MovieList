@@ -5,6 +5,8 @@ This project is created using clean swift.
 It is a two scene app. 
  - First scene: You will see the a list of most recent movies.
  - Second scene: Detail information of selected movie.
+
+
 There is also searchbar, you can filter movies based on their name.
 
 
