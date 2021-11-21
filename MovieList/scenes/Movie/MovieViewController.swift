@@ -22,6 +22,7 @@ class MovieViewController: UIViewController, MovieDisplayLogic {
     
    // @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var interactor: MovieBusinessLogic?
     var router: (NSObjectProtocol & MovieRoutingLogic & MovieDataPassing)?
@@ -74,6 +75,7 @@ class MovieViewController: UIViewController, MovieDisplayLogic {
         fetchMovies()
         collectionView.delegate = self
         collectionView.dataSource = self
+        searchBar.delegate = self
         //tableView.delegate = self
         //tableView.dataSource = self
     }
@@ -81,7 +83,8 @@ class MovieViewController: UIViewController, MovieDisplayLogic {
       // MARK: Do something
         
     var displayedMovies: [Movie.FetchMovie.ViewModel.DisplayedMovies] = []
-      //@IBOutlet weak var nameTextField: UITextField!
+    var filteredMovies: [Movie.FetchMovie.ViewModel.DisplayedMovies] = []
+    var searchActive : Bool = false
       
     func fetchMovies() {
         let request = Movie.FetchMovie.Request()
@@ -92,25 +95,25 @@ class MovieViewController: UIViewController, MovieDisplayLogic {
         displayedMovies = viewModel.displayedMovies
         collectionView.isHidden = false
         collectionView.reloadData()
-        //tableView.isHidden = false
-        //tableView.reloadData()
     }
     
     func displayMovieDetail(selectedItem: Int) {
         router?.routeToMovieDetail(segue: nil, selectedItem: selectedItem)
     }
+    
 }
 
-extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSource, PinterestLayoutDelegate, UISearchBarDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
             return 1
         }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return displayedMovies.count
+        let sectionCount = searchActive ? filteredMovies.count : displayedMovies.count
+        return sectionCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let displayedMovie = displayedMovies[indexPath.row]
+        let displayedMovie = searchActive ? filteredMovies[indexPath.row]:displayedMovies[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as? MovieCollectionViewCell else {
             return UICollectionViewCell()
         }
@@ -124,11 +127,22 @@ extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         displayMovieDetail(selectedItem: indexPath.item)
     }  
-}
 
-extension MovieViewController: PinterestLayoutDelegate {
     func collectionView( _ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
         return 320
-      }
+    }
+        
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let searchString = searchBar.text , !searchString.isEmpty {
+        searchActive = true
+        filteredMovies = displayedMovies.filter({ (item) -> Bool in
+            let movieName: NSString = item.originalTitle as NSString
+            return movieName.lowercased.contains(searchString.lowercased())
+        })
+        } else {
+            searchActive = false
+        }
+        collectionView.reloadData()
+    }
 }
 
